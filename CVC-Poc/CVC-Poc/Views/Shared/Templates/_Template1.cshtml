@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-sm-12 place" style="margin-top:20px;" id="1">
+        <div class="white-box" style="height:250px ">
+            @{ string t1 = ViewData["Element1"].ToString(); Html.RenderPartial(t1); }
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 place" id="2">
+        <div class="white-box" style="height:250px ">
+            @{ string t2 = ViewData["Element2"].ToString(); Html.RenderPartial(t2); }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CVC_Poc.Models.ViewModels.ScreenVm>
+@{
+    ViewData["Title"] = "Screens";
+    Layout = "_Dashboard";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <a class="btn btn-primary float-right" href="@Url.Action("Create")">Add</a>
+            </div>
+
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Name</th>
+                        <th>Template Name</th>
+                        <th>Customer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var val in Model)
+                    {
+                        <tr>
+                            <td>@val.Name</td>
+                            <td>@val.TemplateName</td>
+                            <td>@val.CustomerName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

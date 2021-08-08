@@ -1,0 +1,24 @@
+﻿@model CVC_Poc.Models.ViewModels.ScreenLoad
+@{
+    ViewData["Title"] = Model.ScreenName + " - Screen";
+    Layout = "_Dashboard";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 place" style="margin-top:20px;" id="1">
+                <div class="white-box" style="height:250px ">
+                    @await Html.PartialAsync("../Shared/Elements/_ListType.cshtml", Model.ElementListType)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 place" id="2">
+                <div class="white-box" style="height:250px ">
+                    @await Html.PartialAsync("../Shared/Elements/_FormType.cshtml", Model.ElementFormTypes)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

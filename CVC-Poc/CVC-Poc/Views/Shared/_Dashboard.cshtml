@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+@{
+    @using Microsoft.AspNetCore.Http
+    @using Newtonsoft.Json
+    @using CVC_Poc.Models.Constant
+    //@inject IHttpContextAccessor HttpContextAccessor
+    var user = Context.Session.GetString("_User");
+    UserSession userSession = new UserSession();
+    if (!string.IsNullOrEmpty(user))
+    {
+        userSession = JsonConvert.DeserializeObject<UserSession>(user);
+    }
+}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewData["Title"] - Rai Techintro</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/bower_components/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/bower_components/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/bower_components/icheck-bootstrap/icheck-bootstrap.min.css">
+
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/bower_components/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- jQuery 3 -->
+    <script src="~/bower_components/jquery/jquery.min.js"></script>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <!-- Google Font -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo -->
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Main Menu</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account Menu -->
+                        <li class="dropdown user user-menu">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- The user image in the navbar-->
+                                <img src="~/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span class="hidden-xs">@userSession?.Name</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- The user image in the menu -->
+                                <li class="user-header">
+                                    <img src="~/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                </li>
+
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-right">
+                                        <a href="/Home/Logout" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="/Home/Index" class="d-block">RaiTechintro</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Optionally, you can add icons to the links -->
+                        @if (userSession.Roles == Roles.Developer)
+                        {
+                            <li class="nav-item"><a href="/DisplayObject/Index" class="nav-link"><i class="fa fa-dashboard"></i> <span>Display Object</span></a></li>
+                            <li class="nav-item">
+                                <a href="/Screen/Index" class="nav-link">
+                                    <i class="fa fa-dashboard"></i> <span>Screen</span>
+                                </a>
+                                <ul class="treeview-menu" id="menu">
+                                </ul>
+                            </li>
+                        }
+                        @if (userSession.Roles == Roles.Customer)
+                        {
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-monitor"></i> <span>Screen <i class="fas fa-angle-left right"></i></span>
+                                </a>
+                                <ul class="nav nav-treeview" id="menu">
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            @RenderBody()
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- Default to the left -->
+            <strong>Copyright © @DateTime.Now.Year <a href="https://www.raitechintro.com">Rai Techintro</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED JS SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <!-- jQuery -->
+    <script src="~/bower_components/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="~/bower_components/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/adminlte.min.js"></script>
+
+    <script>
+
+    $(function() {
+
+        $.ajax(
+        {
+            type: "GET",
+            url: '@Url.Action("GetMyScreens", "Screen")',
+            error: function (result) {
+                alert(result);
+            },
+            success: function (result) {
+                var menu = '';
+                $.each( result, function( key, value ) {
+                    menu += '<li class="nav-item"><a class="nav-link" href="/Screen/MyScreen?screenId='+value.id+'">'+value.name+'</a></li>';
+                });
+                $("#menu").html(menu);
+            }
+        });
+    });
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

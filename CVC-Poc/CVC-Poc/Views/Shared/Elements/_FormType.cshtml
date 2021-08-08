@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CVC_Poc.Models.ViewModels.ElementFieldType>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="border p-1">
+    @foreach(var val in Model)
+    {
+    <div class="form-group form-inline">
+        <label class="col-3">@val.FieldName</label>
+        <input type="@val.FieldType" class="form-control col-6" name="@val.FieldName" />
+    </div>
+    }
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<CVC_Poc.Models.ViewModels.DisplayObjectVm>
+@{
+    ViewData["Title"] = "Display Objects";
+    Layout = "_Dashboard";
+}
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <a href="@Url.Action("Create","DisplayObject")" class="btn btn-primary float-right">Add New</a>
+            </div>
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Name</th>
+                        <th>Fields</th>
+                        <th>Type</th>
+                        <th>Customer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var val in Model)
+                    {
+                        <tr>
+                            <td>@val.Name</td>
+                            <td>@string.Join(",",val.Fields)</td>
+                            <td>@val.TypeName</td>
+                            <td>@val.UserName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
